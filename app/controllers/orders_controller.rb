@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
         render json: { errors: @order.errors.full_messages }
       end
     else
-      render json: nil, status: :not_found
+      render json: { errors: ["Cart must exist"] }, status: :not_found
     end
   end
 
@@ -41,7 +41,7 @@ class OrdersController < ApplicationController
         render json: nil, status: :not_found
       end
     else
-      render json: "No customer available", status: :not_found
+      render json: "Order must exist", status: :not_found
     end
   end
 
@@ -54,7 +54,7 @@ class OrdersController < ApplicationController
         render json: nil, status: :errors
       end
     else
-      render json: "No customer available", status: :not_found
+      render json: "Customer must exist", status: :not_found
     end
   end
 end

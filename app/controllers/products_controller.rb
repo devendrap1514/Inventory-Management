@@ -4,16 +4,11 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @vendor = Vendor.find_by_id(params[:vendor_id])
-    if @vendor
-      @product = @vendor.products.new(product_params)
-      if @product.save
-        render json: @product
-      else
-        render json: { errors: @product.errors.full_messages}
-      end
+    @product = Product.new(product_params)
+    if @product.save
+      render json: @product
     else
-      render json: nil, status: :not_found
+      render json: { errors: @product.errors.full_messages }
     end
   end
 
@@ -61,8 +56,19 @@ class ProductsController < ApplicationController
     end
   end
 
+  def search
+    @products = Product.where("name LIKE ? OR brand_name LIKE ?", "#{params[:name]}%", "#{params[:brand_name]}%")
+    render json: @products
+  end
+
+  def delete_by_name
+    @products = Product.where("name LIKE ?", "#{params[:name]}")
+    @products.destroy_all
+    render json: nil
+  end
+
   private
     def product_params
-      params.require(:product).permit(:name, :brand_name)
+      params.require(:product).permit(:name, :brand_name, :vendor_id)
     end
 end

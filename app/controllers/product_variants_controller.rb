@@ -4,16 +4,11 @@ class ProductVariantsController < ApplicationController
   end
 
   def create
-    @product = Product.find_by_id(params[:product_id])
-    if @product
-      @product_variant = @product.product_variants.new(product_variant_params)
-      if @product_variant.save
-        render json: @product_variant
-      else
-        render json: { errors: @product_variant.errors.full_messages}
-      end
+    @product_variant = ProductVariant.new(product_variant_params)
+    if @product_variant.save
+      render json: @product_variant
     else
-      render json: nil, status: :not_found
+      render json: { errors: @product_variant.errors.full_messages}
     end
   end
 
@@ -55,7 +50,7 @@ class ProductVariantsController < ApplicationController
   def view_product_variants
     @product = Product.find_by_id(params[:id])
     if @product
-      render json: @product_variants
+      render json: @product.product_variants
     else
       render json: nil, status: :not_found
     end

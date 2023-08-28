@@ -1,5 +1,6 @@
 class VendorsController < ApplicationController
   def index
+    # byebug
     render json: Vendor.all
   end
 
