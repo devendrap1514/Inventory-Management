@@ -72,3 +72,5 @@ group :test do
 end
 
 gem 'byebug'
+
+gem 'active_model_serializers'

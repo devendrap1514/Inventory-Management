@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   delete '/customers/:id/carts', to: 'carts#destroy_all'
   delete '/customers/:id/orders', to: 'orders#destroy_all'
 
-  get '/search', to: 'products#search'
+  get '/search_by', to: 'products#search'
   delete '/delete_by_name', to: 'products#delete_by_name'
 
   resources :vendors, only: [:index, :create, :show, :update, :destroy]
