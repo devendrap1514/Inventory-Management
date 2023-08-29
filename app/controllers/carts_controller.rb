@@ -2,7 +2,7 @@ class CartsController < ApplicationController
   def index
     @customer = Customer.find_by_id(params[:customer_id])
     if @customer
-      render json: @customer.carts
+      render json: @customer.carts, include: ['product_variant.product', 'product_variant', 'customer']
     else
       render json: nil, status: :not_found
     end
