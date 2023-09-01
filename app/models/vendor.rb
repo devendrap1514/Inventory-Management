@@ -1,5 +1,6 @@
 class Vendor < ApplicationRecord
   has_many :products, dependent: :destroy
+  has_one_attached :profile_picture, dependent: :destroy
 
   validates :email, :first_name, :last_name, presence: true
   validates :email, uniqueness: { case_sensitive: false },

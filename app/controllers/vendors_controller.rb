@@ -1,6 +1,5 @@
 class VendorsController < ApplicationController
   def index
-    # byebug
     render json: Vendor.all
   end
 
@@ -50,6 +49,6 @@ class VendorsController < ApplicationController
 
   private
     def vendor_params
-      params.require(:vendor).permit(:email, :first_name, :last_name)
+      params.require(:vendor).permit(:email, :first_name, :last_name, :profile_picture)
     end
 end
