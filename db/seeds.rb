@@ -12,5 +12,8 @@ products.each do |product|
     product.product_variants.create(length: i*2, width: i*2-(i*2)/2)
   end
 end
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 7013056 (some improvement but still have a error)

@@ -1,5 +1,5 @@
 class Customer < ApplicationRecord
-  has_many :carts, dependent: :destroy
+  has_one :cart, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_one_attached :profile_picture, dependent: :destroy
 
