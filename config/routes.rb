@@ -13,7 +13,11 @@ Rails.application.routes.draw do
 
   resources :vendors, only: [:index, :create, :show, :update, :destroy]
 
-  resources :products, only: [:index, :create, :show, :update, :destroy]
+  resources :products, only: [:index, :create, :show, :update, :destroy] do
+    member do
+      patch "images", action: "images"
+    end
+  end
 
   resources :product_variants, only: [:index, :create, :show, :update, :destroy]
 

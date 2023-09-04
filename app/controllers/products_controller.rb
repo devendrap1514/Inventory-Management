@@ -1,6 +1,16 @@
 class ProductsController < ApplicationController
   def index
-    render json: Product.all
+    limit = params[:limit]
+    if limit != nil
+      if limit.to_i > 50.abs
+        render json: { message: "limit must be less than 50" }
+      else
+        render json: Product.limit(limit)
+      end
+    else
+      render json: Product.limit(50)
+    end
+
   end
 
   def create
@@ -34,6 +44,19 @@ class ProductsController < ApplicationController
     end
   end
 
+  def images
+    @product = Product.find_by_id(params[:id])
+    if @product
+      if @product.product_images.attach(params[:product_images])
+        render json: @product
+      else
+        render json: { errors: @product.errors.full_messages }
+      end
+    else
+      render json: nil, status: :not_found
+    end
+  end
+
   def destroy
     @product = Product.find_by_id(params[:id])
     if @product
@@ -57,7 +80,7 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @products = Product.where("name LIKE ? OR brand_name LIKE ?", "#{params[:name]}%", "#{params[:brand_name]}%")
+    @products = Product.where("name LIKE ?", "#{params[:name]}%")
     render json: @products
   end
 

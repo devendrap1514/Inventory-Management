@@ -5,7 +5,7 @@ class Customer < ApplicationRecord
 
   validates :email, :first_name, :last_name, presence: true
   validates :email, uniqueness: { case_sensitive: false },
-                    format: { with: /\A[a-zA-Z0-9]+@[a-zA-Z]+\.com\z/ }
+                    format: { with: /\A[a-zA-Z0-9]+@[a-zA-Z]+\.com+\z/ }
 
   before_save :remove_whitespace
 
@@ -15,3 +15,5 @@ class Customer < ApplicationRecord
     self.email = self.email.gsub(/\s+/, "") # replace all whitespace with nothing
   end
 end
+
+
